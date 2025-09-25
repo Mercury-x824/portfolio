@@ -3,512 +3,782 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Truwty — Roblox Development Portfolio</title>
+<title>Truwty — Roblox Dev Portfolio</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  :root{
-    --bg-1:#071021;
-    --bg-2:#0f1f36;
-    --glass: rgba(255,255,255,0.04);
-    --accent-1:#ff2e63;
-    --accent-2:#5af0d9;
-    --muted:#bfc6d3;
-    --card:#0b1220;
-    --radius:14px;
-    --max-width:1200px;
+  :root {
+    --bg-a: #0a0f1a;
+    --bg-b: #1e2433;
+    --accent1: #ff2e63;
+    --accent2: #5af0d9;
+    --fg: #e8eef6;
+    --muted: #9aa5b1;
+    --card-bg: rgba(255,255,255,0.03);
+    --radius: 12px;
+    --transition: all .4s ease;
   }
 
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: linear-gradient(135deg,var(--bg-1) 0%, #07102a 40%, var(--bg-2) 100%);
-    color:#e8eef6;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    line-height:1.5;
-    -webkit-tap-highlight-color: transparent;
+  * { box-sizing: border-box; margin:0; padding:0; }
+  html, body { height:100%; }
+  body {
+    font-family: Inter, sans-serif;
+    color: var(--fg);
+    background: linear-gradient(135deg, var(--bg-a), var(--bg-b));
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
-  .container{width:92%;max-width:var(--max-width);margin:0 auto;padding:0 16px}
-
-  /* Header */
-  header{
-    position:fixed;left:0;right:0;top:0;z-index:1200;
-    backdrop-filter: blur(8px);
-    background: linear-gradient(180deg, rgba(8,12,20,0.6), rgba(8,12,20,0.28));
-    border-bottom:1px solid rgba(255,255,255,0.03);
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
   }
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
-  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.05rem}
-  .brand i{color:var(--accent-1);font-size:1.2rem}
-  nav ul{display:flex;gap:18px;align-items:center;list-style:none;margin:0;padding:0}
-  nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.95rem;position:relative;padding:6px 4px;border-radius:8px}
-  nav a:hover{color:#fff}
-  nav a::after{content:'';position:absolute;left:0;right:0;height:3px;bottom:-8px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transform:scaleX(0);transform-origin:left;transition:transform .28s ease}
-  nav a:hover::after{transform:scaleX(1)}
 
-  /* Mobile toggle */
-  .menu-toggle{display:none;background:transparent;border:0;color:var(--muted);font-size:1.15rem;cursor:pointer}
-  .menu{display:flex;align-items:center;gap:14px}
+  header {
+    position: fixed;
+    top:0; left:0; right:0;
+    height: 64px;
+    background: rgba(10,15,26,0.85);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+  }
+  .nav-inner {
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .brand i { color: var(--accent1); margin-right: 8px; }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  nav ul li a {
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 500;
+    position: relative;
+  }
+  nav ul li a:hover {
+    color: var(--fg);
+  }
+  nav ul li a::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    transition: width .3s ease;
+  }
+  nav ul li a:hover::after {
+    width: 100%;
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
 
   /* Hero */
-  .hero{
-    padding:130px 0 80px;
-    min-height:60vh;
-    display:flex;align-items:center;justify-content:center;text-align:center;
-    position:relative;
-    overflow:hidden;
+  .hero {
+    padding: 120px 0 80px;
+    text-align: center;
+    position: relative;
   }
-  .hero::before{
-    content:"";
-    position:absolute;inset:0;
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
     background:
-      radial-gradient(600px 300px at 85% 10%, rgba(90,240,217,0.06), transparent 12%),
-      radial-gradient(500px 250px at 15% 80%, rgba(255,46,99,0.05), transparent 12%);
-    pointer-events:none;
+      radial-gradient(circle at top right, rgba(90,240,217,0.06), transparent 40%),
+      radial-gradient(circle at bottom left, rgba(255,46,99,0.05), transparent 50%);
+    pointer-events: none;
   }
-  .hero-card{
-    position:relative;z-index:2;
-    width:min(1100px,100%);margin:0 auto;
-    padding:36px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    box-shadow: 0 10px 35px rgba(2,8,20,0.6);
-    display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;
-    border: 1px solid rgba(255,255,255,0.03);
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero-content h1 {
+    font-size: 2.6rem;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #ffffff, var(--accent1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-content p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .hero-content .btns {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  .btn.primary {
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    color: #0a0f1a;
+  }
+  .btn.secondary {
+    background: var(--card-bg);
+    color: var(--muted);
+  }
+  .btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
   }
 
-  .hero-text h1{
-    font-size:2.35rem;margin:0 0 12px;color:transparent;
-    background:linear-gradient(90deg,#fff, var(--accent-1));-webkit-background-clip:text;
+  /* Img hero */
+  .hero-img {
+    margin-top: 40px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+    max-width: 100%;
+    height: 300px;
   }
-  .hero-text p{margin:0 0 18px;color:var(--muted);font-weight:500;max-width:58ch}
-  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-  .btn{
-    display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;font-weight:700;
-    border:0;cursor:pointer;text-decoration:none;
-    background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#071422;
-    box-shadow: 0 8px 24px rgba(10,20,30,0.45);
-    transition:transform .18s ease, box-shadow .18s ease;
+  .hero-img img {
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    transition: transform .7s ease;
   }
-  .btn.secondary{
-    background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04);
-    box-shadow:none;font-weight:600;
+  .hero-img:hover img {
+    transform: scale(1.08);
   }
-  .btn:hover{transform:translateY(-4px)}
 
-  /* Hero image */
-  .hero-media{
-    border-radius:12px;overflow:hidden;height:260px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18));
-    border:1px solid rgba(255,255,255,0.03);
+  section {
+    padding: 80px 0;
   }
-  .hero-media img{width:100%;height:100%;object-fit:cover;display:block}
-
-  /* Sections */
-  section{padding:84px 0}
-  .section-title{text-align:center;margin-bottom:34px}
-  .section-title h2{font-size:1.85rem;margin-bottom:8px}
-  .section-title p{color:var(--muted);max-width:66ch;margin:0 auto}
+  .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .section-title h2 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+  }
+  .section-title p {
+    color: var(--muted);
+    max-width: 70ch;
+    margin: 0 auto;
+  }
 
   /* About */
-  .about-grid{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
-  .about-card{padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.06));border:1px solid rgba(255,255,255,0.03)}
-  .about-image{border-radius:12px;overflow:hidden;height:320px;border:1px solid rgba(255,255,255,0.03)}
-  .about-image img{width:100%;height:100%;object-fit:cover;display:block}
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .about-text {
+    max-width: 600px;
+  }
+  .about-text h3 {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+  }
+  .about-text p {
+    margin-bottom: 16px;
+    color: var(--muted);
+  }
+  .about-img {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.05);
+    height: 320px;
+  }
+  .about-img img {
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    transition: transform .6s ease;
+  }
+  .about-img:hover img {
+    transform: scale(1.05);
+  }
 
   /* Features */
-  .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-  .feature{padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));border-left:6px solid var(--accent-1)}
-  .feature h3{margin:0 0 8px;font-size:1rem}
-  .feature p{color:var(--muted);margin:0}
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+    gap: 24px;
+  }
+  .feature {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    border-left: 4px solid var(--accent1);
+    transition: var(--transition);
+  }
+  .feature:hover {
+    transform: translateY(-6px);
+    background: rgba(255,255,255,0.06);
+  }
+  .feature h3 {
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+  }
+  .feature p {
+    color: var(--muted);
+  }
 
   /* Services */
-  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-  .service{padding:22px;border-radius:12px;text-align:center;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.04));border:1px solid rgba(255,255,255,0.03)}
-  .service .icon{font-size:28px;margin-bottom:12px;color:var(--accent-2)}
-  .service h3{margin:0 0 8px}
-  .service p{color:var(--muted)}
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 24px;
+  }
+  .service {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 28px;
+    text-align: center;
+    transition: var(--transition);
+  }
+  .service:hover {
+    transform: translateY(-6px);
+    background: rgba(255,255,255,0.06);
+  }
+  .service .icon {
+    font-size: 2.4rem;
+    color: var(--accent2);
+    margin-bottom: 16px;
+  }
+  .service h3 {
+    margin-bottom: 12px;
+  }
+  .service p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
 
   /* Portfolio */
-  .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
-  .work{position:relative;border-radius:12px;overflow:hidden;height:220px;box-shadow:0 8px 26px rgba(4,8,14,0.6)}
-  .work img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
-  .work:hover img{transform:scale(1.07)}
-  .overlay{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(0deg, rgba(7,10,20,0.9), transparent);color:#fff;transform:translateY(100%);transition:transform .28s ease}
-  .work:hover .overlay{transform:translateY(0)}
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 20px;
+  }
+  .work {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    height: 220px;
+    background: var(--card-bg);
+    transition: var(--transition);
+  }
+  .work:hover {
+    transform: translateY(-4px);
+  }
+  .work img {
+    width:100%;
+    height:100%;
+    object-fit: cover;
+    transition: transform .6s ease;
+  }
+  .work:hover img {
+    transform: scale(1.1);
+  }
+  .overlay {
+    position: absolute;
+    left:0; right:0; bottom:0;
+    padding: 16px;
+    background: linear-gradient(0deg, rgba(10,15,26,0.9), transparent);
+    color: #fff;
+    transform: translateY(100%);
+    transition: transform .4s ease;
+  }
+  .work:hover .overlay {
+    transform: translateY(0);
+  }
 
-  /* Timeline */
-  .timeline{max-width:920px;margin:0 auto;position:relative}
-  .tl-item{display:flex;gap:18px;align-items:flex-start;margin-bottom:18px;opacity:0;transform:translateY(10px);transition:all .45s ease}
-  .tl-dot{min-width:12px;height:12px;border-radius:50%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));margin-top:8px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
-  .tl-card{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.04));border-radius:10px;padding:12px 16px;border:1px solid rgba(255,255,255,0.03)}
-  .tl-card h4{margin:0 0 6px}
-  .tl-card p{margin:0;color:var(--muted)}
+  /* Timeline / Experience */
+  .timeline {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .tl-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition);
+  }
+  .tl-item.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .tl-dot {
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    border-radius: 50%;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .tl-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 16px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .tl-card h4 {
+    margin-bottom: 8px;
+  }
+  .tl-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
 
   /* Reviews */
-  .reviews-grid{max-width:900px;margin:0 auto;display:grid;gap:16px}
-  .review-card{padding:16px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.04));border-left:6px solid var(--accent-1)}
-  .review-avatar{width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#071422;font-weight:800;margin-right:12px}
-  .review-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .reviews-grid {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    gap: 20px;
+  }
+  .review-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 18px;
+    border-left: 4px solid var(--accent1);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: var(--transition);
+  }
+  .review-card.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .review-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-a);
+    font-weight: 700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .review-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .review-text {
+    color: var(--muted);
+    font-style: italic;
+  }
+  .review-form {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+    margin-top: 40px;
+  }
+  .review-form h3 {
+    margin-bottom: 16px;
+  }
+  .form-group {
+    margin-bottom: 14px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+  input, select, textarea {
+    width:100%;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    color: var(--muted);
+    font-family: inherit;
+    font-size: 0.95rem;
+    outline: none;
+    transition: var(--transition);
+  }
+  textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
 
-  .review-form{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.04));border:1px solid rgba(255,255,255,0.03)}
-  .form-row{display:grid;grid-template-columns:1fr 120px;gap:10px}
-  .form-group{margin-bottom:10px}
-  label{display:block;font-weight:600;font-size:.875rem;margin-bottom:6px}
-  input[type="text"],select,textarea{width:100%;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--muted);outline:none}
-  textarea{min-height:110px;resize:vertical}
+  /* Contact / Footer */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .contact-box {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .contact-box h4 {
+    margin-bottom: 12px;
+  }
+  .contact-box p {
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .contact-box a {
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .contact-box a:hover {
+    text-decoration: underline;
+  }
 
-  /* Footer */
-  footer{padding:40px 0;background:linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.14));border-top:1px solid rgba(255,255,255,0.02)}
-  .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;align-items:start}
-  .footer a{color:var(--muted);text-decoration:none}
-  .social-row{display:flex;gap:10px;align-items:center}
-  .social-row a{display:inline-flex;width:44px;height:44px;border-radius:50%;align-items:center;justify-content:center;background:rgba(255,255,255,0.02);color:var(--muted)}
-  .copyright{margin-top:18px;color:var(--muted);font-size:.88rem;text-align:center}
-
-  /* Utilities */
-  .hide-mobile{display:inline-flex}
-  .show-mobile{display:none}
+  footer {
+    padding: 32px 0;
+    background: rgba(10,15,26,0.9);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    color: var(--muted);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 24px;
+  }
+  .footer-grid h3 {
+    color: var(--fg);
+    margin-bottom: 12px;
+  }
+  .footer-grid a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+  .footer-grid a:hover {
+    color: var(--fg);
+  }
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .footer-socials a {
+    width: 44px; height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.03);
+    border-radius: 50%;
+    color: var(--muted);
+    transition: var(--transition);
+  }
+  .footer-socials a:hover {
+    transform: translateY(-3px);
+    color: var(--fg);
+  }
+  .copyright {
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: 14px;
+  }
 
   /* Responsive */
-  @media (max-width:1000px){
-    .hero-card{grid-template-columns:1fr 300px}
-    .about-grid{grid-template-columns:1fr}
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
   }
-  @media (max-width:780px){
-    .nav-inner{height:64px}
-    .menu-toggle{display:inline-flex}
-    nav ul{display:none;position:fixed;top:64px;left:0;right:0;background:linear-gradient(180deg, rgba(7,10,20,0.98), rgba(7,10,20,0.96));flex-direction:column;padding:12px 18px;gap:8px;border-top:1px solid rgba(255,255,255,0.02)}
-    nav ul.open{display:flex}
-    .menu{gap:8px}
-    .hero-card{grid-template-columns:1fr;gap:16px;padding:18px}
-    .hero-media{height:200px}
-    .hero-text h1{font-size:1.6rem}
-    .hide-mobile{display:none}
-    .show-mobile{display:inline-flex}
-    section{padding:48px 0}
+  @media (max-width: 768px) {
+    .menu-toggle { display: block; }
+    nav ul { display: none; position: fixed; top:64px; left:0; right:0; background: rgba(10,15,26,0.96); flex-direction: column; padding: 16px; gap: 14px; }
+    nav ul.open { display: flex; }
   }
-
-  /* misc animations on in-view */
-  .in-view{opacity:1;transform:none}
 </style>
 </head>
 <body>
 <header>
   <div class="container nav-inner">
-    <div class="brand"><i class="fas fa-code"></i> Truwty</div>
-
-    <div class="menu">
-      <nav aria-label="Primary navigation">
-        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="primaryNav"><i class="fas fa-bars"></i></button>
-        <ul id="primaryNav" role="menubar">
-          <li role="none"><a role="menuitem" href="#home">Home</a></li>
-          <li role="none"><a role="menuitem" href="#about">About</a></li>
-          <li role="none"><a role="menuitem" href="#why-me">Why Me</a></li>
-          <li role="none"><a role="menuitem" href="#services">Services</a></li>
-          <li role="none"><a role="menuitem" href="#portfolio">Portfolio</a></li>
-          <li role="none"><a role="menuitem" href="#experience">Experience</a></li>
-          <li role="none"><a role="menuitem" href="#reviews">Reviews</a></li>
-          <li role="none"><a role="menuitem" href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-
-    <div class="hide-mobile">
-      <a class="btn secondary" href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener">Roblox</a>
-      <a class="btn" href="#portfolio">View Work</a>
-    </div>
+    <div class="brand"><i class="fas fa-code"></i>Truwty</div>
+    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    <nav>
+      <ul id="navList">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#why-me">Why Me</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
   </div>
 </header>
 
 <main>
-  <!-- Hero -->
-  <section id="home" class="hero" aria-labelledby="heroTitle">
-    <div class="container hero-card" role="region" aria-label="Introduction">
-      <div class="hero-text">
-        <h1 id="heroTitle">Professional Roblox Development — MILSIM & Bots</h1>
-        <p>Building immersive Roblox MILSIM experiences, advanced Lua systems, Discord integrations and tailored avatar clothing. Clean code. Fast delivery. Real results.</p>
-        <div class="hero-cta">
-          <a class="btn" href="#portfolio">See Portfolio</a>
-          <a class="btn secondary" href="#contact">Get A Quote</a>
-        </div>
+  <section id="home" class="hero">
+    <div class="container hero-content">
+      <h1>Professional Roblox Development for MILSIM & Bots</h1>
+      <p>Immersive Roblox experiences, custom systems, Discord bot integrations, and stylized clothing. Built with care & performance in mind.</p>
+      <div class="btns">
+        <a class="btn primary" href="#portfolio">View Portfolio</a>
+        <a class="btn secondary" href="#contact">Get in Touch</a>
       </div>
-
-      <div class="hero-media" aria-hidden="false">
-        <img
-          src="https://images.unsplash.com/photo-1602524817908-fd3d9c7e9e47?q=80&w=1400&auto=format&fit=crop"
-          srcset="
-            https://images.unsplash.com/photo-1602524817908-fd3d9c7e9e47?q=80&w=400&auto=format&fit=crop 400w,
-            https://images.unsplash.com/photo-1602524817908-fd3d9c7e9e47?q=80&w=800&auto=format&fit=crop 800w,
-            https://images.unsplash.com/photo-1602524817908-fd3d9c7e9e47?q=80&w=1400&auto=format&fit=crop 1400w
-          "
-          sizes="(max-width: 780px) 100vw, 420px"
-          alt="Coding workstation and design mockups"
-          loading="lazy"
-          onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%221200%22 height=%22700%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%2308121a%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23ffffff%22 font-size=%2230%22 font-family=%22Arial%22 text-anchor=%22middle%22 dy=%22.3em%22>Image not available</text></svg>'" />
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop"
+             alt="Roblox development environment"
+             loading="lazy"
+             onerror="this.onerror=null;this.src='https://via.placeholder.com/800x300?text=Roblox+Image'">
       </div>
     </div>
   </section>
 
-  <!-- About -->
-  <section id="about" aria-labelledby="aboutTitle">
+  <section id="about">
     <div class="container">
       <div class="section-title">
-        <h2 id="aboutTitle">About Me</h2>
-        <p>Roblox developer and scripter with practical experience building MILSIMs, join-loggers, game systems and clothing. I value clean code, fast iteration and clear communication.</p>
+        <h2>About Me</h2>
+        <p>Roblox dev & scripter with a passion for efficient systems, immersive experiences, and clean architecture.</p>
       </div>
-
       <div class="about-grid">
-        <div class="about-card">
-          <h3 style="margin-top:0">Roblox Developer & Scripter</h3>
-          <p style="color:var(--muted)">Active on Roblox since 2017. 2.5+ years focused on Lua scripting, UI systems, group-based features, and custom avatar clothing for MILSIM groups.</p>
-          <ul style="color:var(--muted);margin:12px 0 18px;padding-left:18px">
-            <li>Advanced Lua & Roblox Studio</li>
-            <li>Discord bot integrations & web dashboards</li>
-            <li>Optimized game performance & lighting</li>
-            <li>Clean, maintainable code & documentation</li>
-          </ul>
-          <div style="display:flex;gap:10px">
-            <a class="btn" href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener">Roblox Profile</a>
+        <div class="about-text">
+          <h3>Roblox Developer & Scripter</h3>
+          <p>Active since 2017, with 2.5+ years focused on scripting, UI systems, server architecture, and avatar customization for MILSIM groups.</p>
+          <p>I prioritize performance, readability, and maintainability. I build features you can hand off, expand, and easily debug.</p>
+          <div style="margin-top:20px;">
+            <a class="btn primary" href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener">Roblox Profile</a>
             <a class="btn secondary" href="#contact">Contact Me</a>
           </div>
         </div>
-
-        <div class="about-image">
-          <img
-            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop"
-            alt="Developer working at a computer"
-            loading="lazy"
-            srcset="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=400&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=800&auto=format&fit=crop 800w, https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop 1200w"
-            sizes="(max-width:780px) 100vw, 420px"
-            onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%221200%22 height=%22700%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%2308121a%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23ffffff%22 font-size=%2230%22 font-family=%22Arial%22 text-anchor=%22middle%22 dy=%22.3em%22>Image not available</text></svg>'" />
+        <div class="about-img">
+          <img src="https://images.unsplash.com/photo-1602524817908-fd3d9c7e9e47?q=80&w=1200&auto=format&fit=crop"
+               alt="Coding on screen"
+               loading="lazy"
+               onerror="this.onerror=null;this.src='https://via.placeholder.com/400x320?text=Code+Image'">
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Why Me -->
-  <section id="why-me" aria-labelledby="whyTitle">
+  <section id="why-me">
     <div class="container">
       <div class="section-title">
-        <h2 id="whyTitle">Why Choose Me?</h2>
-        <p>Clear reasons other teams pick me — reliability, clean code, and systems that scale.</p>
+        <h2>Why Choose Me?</h2>
+        <p>Here’s what sets my work apart from the rest.</p>
       </div>
-
       <div class="features-grid">
-        <div class="feature"><h3><i class="fas fa-tasks" style="margin-right:8px;color:var(--accent-2)"></i>Challenging Tasks</h3><p>Will tackle complex systems and push new libraries/tools.</p></div>
-        <div class="feature"><h3><i class="fas fa-comments" style="margin-right:8px;color:var(--accent-2)"></i>Professional Communication</h3><p>Regular updates, clear timelines and accessible documentation.</p></div>
-        <div class="feature"><h3><i class="fas fa-code" style="margin-right:8px;color:var(--accent-2)"></i>Clean Code</h3><p>Readable, maintainable code with comments and basic tests where appropriate.</p></div>
-        <div class="feature"><h3><i class="fas fa-clock" style="margin-right:8px;color:var(--accent-2)"></i>GMT Timezone</h3><p>Flexible scheduling with fast turnarounds when necessary.</p></div>
-        <div class="feature"><h3><i class="fas fa-handshake" style="margin-right:8px;color:var(--accent-2)"></i>Fair Pricing</h3><p>Negotiable, transparent pricing — value-driven proposals, not premium fluff.</p></div>
-        <div class="feature"><h3><i class="fas fa-heart" style="margin-right:8px;color:var(--accent-2)"></i>Passionate</h3><p>I care about quality — not just shipping, but shipping right.</p></div>
+        <div class="feature"><h3><i class="fas fa-tasks"></i> Challenging Tasks</h3><p>I take complex problems head-on. New libs, edge cases, no problem.</p></div>
+        <div class="feature"><h3><i class="fas fa-comments"></i> Clear Communication</h3><p>You’ll always know where the project stands; no radio silence.</p></div>
+        <div class="feature"><h3><i class="fas fa-code"></i> Clean Code</h3><p>Your future self (or another dev) will thank you for readable, commented code.</p></div>
+        <div class="feature"><h3><i class="fas fa-clock"></i> GMT Timezone</h3><p>I operate around your timeline — ready when you are.</p></div>
+        <div class="feature"><h3><i class="fas fa-handshake"></i> Fair Pricing</h3><p>No fluff. Just value. I price based on work, not buzzwords.</p></div>
+        <div class="feature"><h3><i class="fas fa-heart"></i> Passionate</h3><p>I build because it matters. Every line counts.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
-  <section id="services" aria-labelledby="servicesTitle">
+  <section id="services">
     <div class="container">
       <div class="section-title">
-        <h2 id="servicesTitle">Services</h2>
-        <p>From clothing design to advanced scripting and bot integrations — end-to-end solutions.</p>
+        <h2>Services</h2>
+        <p>From concept to launch — full stack solutions for Roblox, bots, systems & visuals.</p>
       </div>
-
       <div class="services-grid">
         <div class="service">
           <div class="icon"><i class="fas fa-tshirt"></i></div>
           <h3>Clothing Design</h3>
-          <p>High-detail uniform and avatar clothing tailored to your Milsim group's style.</p>
+          <p>Custom MILSIM avatar clothing — clean, thematic, optimized.</p>
         </div>
-
         <div class="service">
           <div class="icon"><i class="fab fa-discord"></i></div>
-          <h3>Discord Bot Development</h3>
-          <p>Slash commands, dashboards, music features and moderation tools.</p>
+          <h3>Discord Bots</h3>
+          <p>Slash commands, dashboards, moderation, music control and more.</p>
         </div>
-
         <div class="service">
           <div class="icon"><i class="fas fa-cogs"></i></div>
           <h3>Advanced Scripting</h3>
-          <p>Join loggers, team systems, saving systems and server-side performance tuning.</p>
+          <p>Server-side logic, join loggers, team systems, and custom modules.</p>
         </div>
-
         <div class="service">
           <div class="icon"><i class="fas fa-lightbulb"></i></div>
           <h3>Graphics & Lighting</h3>
-          <p>Realistic lighting setups, post-processing and visual polish to enhance immersion.</p>
+          <p>Post-processing, environment effects, lighting tweaks to polish visuals.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Portfolio -->
-  <section id="portfolio" aria-labelledby="portfolioTitle">
+  <section id="portfolio">
     <div class="container">
       <div class="section-title">
-        <h2 id="portfolioTitle">Portfolio</h2>
-        <p>Recent work — click to view larger versions. Images are responsive and lazy-loaded for performance.</p>
+        <h2>Portfolio</h2>
+        <p>Some recent projects. Click to zoom in and view details.</p>
       </div>
-
       <div class="portfolio-grid">
-        <article class="work" tabindex="0" aria-label="Milsim Uniform Design">
-          <img loading="lazy" alt="Milsim uniform design example"
-            src="https://trusnooze.carrd.co/assets/images/image05.jpg?v=b0a2f4c8"
-            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1545519677-91a5f0d4d0eb?q=80&w=1200&auto=format&fit=crop'">
-          <div class="overlay"><h4>Milsim Uniform Design</h4><p>Custom military-style clothing for Roblox avatars.</p></div>
-        </article>
-
-        <article class="work" tabindex="0" aria-label="Music Bot Dashboard">
-          <img loading="lazy" alt="Discord music bot dashboard"
-            src="https://trusnooze.carrd.co/assets/images/image01.jpg?v=b0a2f4c8"
-            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop'">
-          <div class="overlay"><h4>Music Bot Dashboard</h4><p>Interactive dashboard for music control and moderation.</p></div>
-        </article>
-
-        <article class="work" tabindex="0" aria-label="Advanced Scripting">
-          <img loading="lazy" alt="Advanced scripting example"
-            src="https://trusnooze.carrd.co/assets/images/image02.jpg?v=b0a2f4c8"
-            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop'">
-          <div class="overlay"><h4>Advanced Scripting</h4><p>Complex Lua systems built for scalability and clarity.</p></div>
-        </article>
-
-        <article class="work" tabindex="0" aria-label="Tactical Gear">
-          <img loading="lazy" alt="Tactical gear design"
-            src="https://trusnooze.carrd.co/assets/images/image06.jpg?v=b0a2f4c8"
-            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop'">
-          <div class="overlay"><h4>Tactical Gear</h4><p>Realistic equipment for MILSIM groups.</p></div>
-        </article>
-
-        <article class="work" tabindex="0" aria-label="Game Systems">
-          <img loading="lazy" alt="Game system example"
-            src="https://trusnooze.carrd.co/assets/images/image04.jpg?v=b0a2f4c8"
-            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop'">
-          <div class="overlay"><h4>Game Systems</h4><p>Custom mechanics, UI and server logic.</p></div>
-        </article>
-
-        <article class="work" tabindex="0" aria-label="Special Forces Gear">
-          <img loading="lazy" alt="Special forces clothing"
-            src="https://trusnooze.carrd.co/assets/images/image08.jpg?v=b0a2f4c8"
-            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1549921296-3b1b9d0f22d7?q=80&w=1200&auto=format&fit=crop'">
-          <div class="overlay"><h4>Special Forces Gear</h4><p>Elite military clothing designs with authentic detail.</p></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Experience / Timeline -->
-  <section id="experience" aria-labelledby="expTitle">
-    <div class="container">
-      <div class="section-title">
-        <h2 id="expTitle">Past Experience</h2>
-        <p>Roles across multiple groups and projects — scripting, leading and building systems.</p>
-      </div>
-
-      <div class="timeline" id="timeline">
-        <div class="tl-item">
-          <div class="tl-dot" aria-hidden="true"></div>
-          <div class="tl-card"><h4>JayVintros — British Army</h4><p>Scripter</p></div>
+        <div class="work">
+          <img src="https://trusnooze.carrd.co/assets/images/image05.jpg?v=b0a2f4c8"
+               alt="Milsim Uniform Design"
+               loading="lazy"
+               onerror="this.onerror=null;this.src='https://via.placeholder.com/400x220?text=Image'">
+          <div class="overlay"><h4>Milsim Uniform Design</h4><p>Custom avatar clothing in themed styles.</p></div>
         </div>
-        <div class="tl-item">
-          <div class="tl-dot" aria-hidden="true"></div>
-          <div class="tl-card"><h4>Sjaaks — British Army</h4><p>Chief Developer</p></div>
+        <div class="work">
+          <img src="https://trusnooze.carrd.co/assets/images/image01.jpg?v=b0a2f4c8"
+               alt="Music Bot Dashboard"
+               loading="lazy"
+               onerror="this.onerror=null;this.src='https://via.placeholder.com/400x220?text=Image'">
+          <div class="overlay"><h4>Music Bot Dashboard</h4><p>Interactive control and visualization UI.</p></div>
         </div>
-        <div class="tl-item">
-          <div class="tl-dot" aria-hidden="true"></div>
-          <div class="tl-card"><h4>Haileys — British Army</h4><p>Chief Scripter</p></div>
+        <div class="work">
+          <img src="https://trusnooze.carrd.co/assets/images/image02.jpg?v=b0a2f4c8"
+               alt="Advanced Scripting"
+               loading="lazy"
+               onerror="this.onerror=null;this.src='https://via.placeholder.com/400x220?text=Image'">
+          <div class="overlay"><h4>Advanced Scripting</h4><p>Scalable Lua modules & systems.</p></div>
         </div>
-        <div class="tl-item">
-          <div class="tl-dot" aria-hidden="true"></div>
-          <div class="tl-card"><h4>SinfulSnoozes — US Marine Corps</h4><p>Chief Developer</p></div>
+        <div class="work">
+          <img src="https://trusnooze.carrd.co/assets/images/image06.jpg?v=b0a2f4c8"
+               alt="Tactical Gear"
+               loading="lazy"
+               onerror="this.onerror=null;this.src='https://via.placeholder.com/400x220?text=Image'">
+          <div class="overlay"><h4>Tactical Gear</h4><p>Realistic MILSIM equipment design.</p></div>
         </div>
-        <div class="tl-item">
-          <div class="tl-dot" aria-hidden="true"></div>
-          <div class="tl-card"><h4>Snooze Bloodline</h4><p>Co-creator of the Sword Battle Arena</p></div>
+        <div class="work">
+          <img src="https://trusnooze.carrd.co/assets/images/image04.jpg?v=b0a2f4c8"
+               alt="Game Systems"
+               loading="lazy"
+               onerror="this.onerror=null;this.src='https://via.placeholder.com/400x220?text=Image'">
+          <div class="overlay"><h4>Game Systems</h4><p>Custom mechanics & logic modules.</p></div>
         </div>
-        <div class="tl-item">
-          <div class="tl-dot" aria-hidden="true"></div>
-          <div class="tl-card"><h4>ReaperNovahs — British Army</h4><p>Developer</p></div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-dot" aria-hidden="true"></div>
-          <div class="tl-card"><h4>Unknowns — Royal Airforce</h4><p>Chief Developer</p></div>
+        <div class="work">
+          <img src="https://trusnooze.carrd.co/assets/images/image08.jpg?v=b0a2f4c8"
+               alt="Special Forces Gear"
+               loading="lazy"
+               onerror="this.onerror=null;this.src='https://via.placeholder.com/400x220?text=Image'">
+          <div class="overlay"><h4>Special Forces Gear</h4><p>Elite-level avatar clothing sets.</p></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Reviews -->
-  <section id="reviews" aria-labelledby="reviewsTitle">
+  <section id="experience">
     <div class="container">
       <div class="section-title">
-        <h2 id="reviewsTitle">Client Reviews</h2>
-        <p>Real feedback from collaborators. Leave one below — moderated and persisted locally for demo.</p>
+        <h2>Past Experience</h2>
+        <p>Roles & projects I've worked on across groups and dev teams.</p>
       </div>
-
-      <div class="reviews-grid" id="reviewsContainer">
-        <!-- Pre-filled testimonials -->
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><h4>JayVintros — British Army</h4><p>Scripter</p></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><h4>Sjaaks — British Army</h4><p>Chief Developer</p></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><h4>Haileys — British Army</h4><p>Chief Scripter</p></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><h4>SinfulSnoozes — USMC</h4><p>Chief Developer</p></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><h4>Snooze Bloodline</h4><p>Co-creator of Sword Battle Arena</p></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><h4>ReaperNovahs — British Army</h4><p>Developer</p></div></div>
+        <div class="tl-item"><div class="tl-dot"></div><div class="tl-card"><h4>Unknowns — Royal Airforce</h4><p>Chief Developer</p></div></div>
       </div>
+    </div>
+  </section>
 
-      <div style="max-width:900px;margin:18px auto 0">
-        <div class="review-form" aria-labelledby="leaveReview">
-          <h3 id="leaveReview">Leave a Review</h3>
-          <form id="reviewForm" novalidate>
-            <div class="form-row">
-              <div class="form-group"><label for="name">Your Name (optional)</label><input id="name" type="text" placeholder="Anonymous"></div>
-              <div class="form-group"><label for="rating">Rating</label>
-                <select id="rating" required>
-                  <option value="5">5 Stars</option>
-                  <option value="4">4 Stars</option>
-                  <option value="3">3 Stars</option>
-                  <option value="2">2 Stars</option>
-                  <option value="1">1 Star</option>
-                </select>
-              </div>
-            </div>
+  <section id="reviews">
+    <div class="container">
+      <div class="section-title">
+        <h2>Client Reviews</h2>
+        <p>Feedback from past clients. Submit your own below.</p>
+      </div>
+      <div class="reviews-grid" id="reviewsContainer"></div>
 
-            <div class="form-group"><label for="reviewText">Your Review</label><textarea id="reviewText" placeholder="Share your experience..." required></textarea></div>
-            <div style="display:flex;gap:10px;align-items:center">
-              <button class="btn" type="submit">Submit Review</button>
-              <button class="btn secondary" type="button" id="clearReviews">Clear Local Reviews</button>
+      <div>
+        <div class="review-form">
+          <h3>Leave a Review</h3>
+          <form id="reviewForm">
+            <div class="form-group">
+              <label for="name">Name (optional)</label>
+              <input id="name" type="text" placeholder="Anonymous">
             </div>
+            <div class="form-group">
+              <label for="rating">Rating</label>
+              <select id="rating" required>
+                <option value="5">5 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="2">2 Stars</option>
+                <option value="1">1 Star</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="reviewText">Review</label>
+              <textarea id="reviewText" placeholder="Share your experience..." required></textarea>
+            </div>
+            <button class="btn primary" type="submit">Submit</button>
           </form>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact / Footer anchor -->
-  <section id="contact" aria-label="Contact">
+  <section id="contact">
     <div class="container">
       <div class="section-title">
         <h2>Contact</h2>
-        <p>Ready to build? Send a message or add me on Discord — quick replies for commission inquiries.</p>
+        <p>Let’s build something. Drop details below or reach me via email/Discord.</p>
       </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">
-        <div style="padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.04));border:1px solid rgba(255,255,255,0.03)">
-          <h4 style="margin-top:0">Reach Out</h4>
-          <p style="color:var(--muted)"><strong>Email:</strong> <a href="mailto:truwty1@gmail.com">truwty1@gmail.com</a></p>
-          <p style="color:var(--muted)"><strong>Discord:</strong> truwty</p>
-          <p style="color:var(--muted)"><strong>Timezone:</strong> GMT</p>
-          <div style="margin-top:12px" class="social-row">
-            <a href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener" title="Roblox"><i class="fas fa-gamepad"></i></a>
-            <a href="#" aria-hidden="true" title="Discord"><i class="fab fa-discord"></i></a>
-          </div>
+      <div class="contact-grid">
+        <div class="contact-box">
+          <h4>Reach Me</h4>
+          <p><strong>Email:</strong> <a href="mailto:truwty1@gmail.com">truwty1@gmail.com</a></p>
+          <p><strong>Discord:</strong> truwty</p>
+          <p><strong>Timezone:</strong> GMT</p>
         </div>
-
-        <div style="padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.04));border:1px solid rgba(255,255,255,0.03)">
-          <h4 style="margin-top:0">Quick Lead</h4>
-          <p style="color:var(--muted)">Describe the project, budget and target timeline. I'll reply with a realistic plan and quote.</p>
+        <div class="contact-box">
+          <h4>Project Lead</h4>
+          <p>Drop me a short brief, timeline, and budget. I’ll reply with a plan & quote.</p>
           <form id="leadForm">
-            <div class="form-group"><label for="project">Project summary</label><input id="project" type="text" placeholder="e.g. Join-logger + roles system"></div>
-            <div class="form-group"><label for="budget">Budget (GBP)</label><input id="budget" type="text" placeholder="e.g. 30-100"></div>
-            <div style="display:flex;gap:8px">
-              <button class="btn" type="submit">Send</button>
-              <button class="btn secondary" type="reset">Reset</button>
+            <div class="form-group">
+              <label for="proj">Project Summary</label>
+              <input id="proj" type="text" placeholder="E.g. Join logger + role system">
             </div>
+            <div class="form-group">
+              <label for="budg">Budget (GBP)</label>
+              <input id="budg" type="text" placeholder="E.g. 30-100">
+            </div>
+            <button class="btn primary" type="submit">Send</button>
           </form>
         </div>
       </div>
@@ -521,156 +791,126 @@
     <div class="footer-grid">
       <div>
         <h3>About</h3>
-        <p style="color:var(--muted)">Roblox developer focused on MILSIM experiences, bots and clothing. Clean code and practical delivery.</p>
+        <p>Roblox dev specializing in MILSIM, bots, clothing & clean systems. Focused on performance and maintainability.</p>
       </div>
-
       <div>
-        <h3>Contact Info</h3>
-        <p style="color:var(--muted)"><i class="fas fa-envelope"></i> truwty1@gmail.com</p>
-        <p style="color:var(--muted)"><i class="fab fa-discord"></i> truwty</p>
+        <h3>Contact</h3>
+        <p><i class="fas fa-envelope"></i> truwty1@gmail.com</p>
+        <p><i class="fab fa-discord"></i> truwty</p>
       </div>
-
       <div>
-        <h3>Quick Links</h3>
+        <h3>Links</h3>
         <a href="#home">Home</a><br>
         <a href="#portfolio">Portfolio</a><br>
         <a href="#services">Services</a><br>
         <a href="#reviews">Reviews</a>
       </div>
     </div>
-
-    <div style="display:flex;justify-content:center;margin-top:14px">
-      <div class="social-row" aria-hidden="true">
-        <a href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener" title="Roblox"><i class="fas fa-gamepad"></i></a>
-        <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
-      </div>
+    <div class="footer-socials">
+      <a href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener"><i class="fas fa-gamepad"></i></a>
+      <a href="#" aria-hidden="true"><i class="fab fa-discord"></i></a>
     </div>
-
-    <div class="copyright" id="copyright"></div>
+    <div class="copyright">© <span id="yr"></span> Truwty • All rights reserved.</div>
   </div>
 </footer>
 
 <script>
-  // Mobile menu toggle
+  // Menu toggle mobile
   const menuToggle = document.getElementById('menuToggle');
-  const primaryNav = document.getElementById('primaryNav');
+  const navList = document.getElementById('navList');
   menuToggle.addEventListener('click', () => {
-    const open = primaryNav.classList.toggle('open');
-    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    navList.classList.toggle('open');
   });
 
-  // Smooth scroll with offset for header
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click', (e)=>{
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
       const href = a.getAttribute('href');
-      if(!href || href.length === 1) return;
-      const el = document.querySelector(href);
-      if(!el) return;
+      if (href.length === 1) return;
+      const target = document.querySelector(href);
+      if (!target) return;
       e.preventDefault();
-      const headerOffset = document.querySelector('header').offsetHeight + 8;
-      const rect = el.getBoundingClientRect();
-      const scrollTop = window.scrollY + rect.top - headerOffset;
-      window.scrollTo({ top: Math.max(scrollTop, 0), behavior: 'smooth' });
-      // close mobile nav if open
-      if(primaryNav.classList.contains('open')) { primaryNav.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); }
+      const offset = document.querySelector('header').offsetHeight + 8;
+      const topPos = target.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: topPos, behavior: 'smooth' });
+      if (navList.classList.contains('open')) navList.classList.remove('open');
     });
   });
 
-  // Intersection observer to animate timeline and lazy reveal sections
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(en=>{
-      if(en.isIntersecting){ en.target.classList.add('in-view'); io.unobserve(en.target); }
+  // Intersection observer for animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(ent => {
+      if (ent.isIntersecting) {
+        ent.target.classList.add('in-view');
+        observer.unobserve(ent.target);
+      }
     });
-  }, {threshold: 0.12});
-  document.querySelectorAll('.tl-item, .work, .feature, .service, .review-card, .hero-card').forEach(n => io.observe(n));
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.tl-item, .feature, .service, .work, .review-card').forEach(el => {
+    observer.observe(el);
+  });
 
-  // Reviews persistence (localStorage)
-  const stored = JSON.parse(localStorage.getItem('truwty_reviews') || 'null') || [
-    {name:'Anonymous Client', rating:5, text:'"Truwty delivered exceptional work on our MILSIM game! Clean and efficient scripting. Highly recommended!"'},
-    {name:'Anonymous Group Leader', rating:4.5, text:'"The Discord bot created for our community has been a game-changer. Professional and ahead of schedule."'},
-    {name:'Anonymous Developer', rating:5, text:'"Attention to detail and willingness to go above and beyond. Join logger system was top quality."'}
+  // Reviews storage & rendering
+  let reviews = JSON.parse(localStorage.getItem('truwty_reviews') || 'null') || [
+    { name:'Anonymous Client', rating:5, text:'Truwty delivered exceptional work on our MILSIM game! Clean & efficient.' },
+    { name:'Group Leader', rating:4.5, text:'The Discord bot is a game-changer — delivered early & clean.' },
+    { name:'Developer', rating:5, text:'Attention to detail is insane. Join logging systems top quality.' }
   ];
-
   const reviewsContainer = document.getElementById('reviewsContainer');
-  function renderReviews(){
+  function starStr(n) {
+    const full = Math.floor(n);
+    const half = (n - full) >= 0.5 ? '½' : '';
+    return '★'.repeat(full) + half;
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+  }
+  function renderReviews() {
     reviewsContainer.innerHTML = '';
-    stored.slice().reverse().forEach(r=>{
-      const card = document.createElement('div');
-      card.className='review-card';
-      card.innerHTML = `
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="display:flex;align-items:center">
-            <div class="review-avatar">${(r.name&&r.name[0])?r.name[0].toUpperCase():'T'}</div>
-            <div style="margin-left:10px">
-              <div style="font-weight:700">${r.name || 'Anonymous'}</div>
-              <div style="color:var(--muted);font-size:.9rem">${showStars(r.rating)}</div>
-            </div>
+    reviews.slice().reverse().forEach(r => {
+      const div = document.createElement('div');
+      div.className = 'review-card';
+      div.innerHTML = `
+        <div class="review-meta">
+          <div class="review-avatar">${(r.name? r.name[0].toUpperCase() : 'T')}</div>
+          <div>
+            <div style="font-weight:600;">${escapeHtml(r.name || 'Anonymous')}</div>
+            <div style="color: var(--muted); font-size:0.9rem;">${starStr(r.rating)}</div>
           </div>
-          <div style="color:var(--muted);font-size:.85rem">${new Date(r.date||Date.now()).toLocaleDateString()}</div>
         </div>
-        <div style="margin-top:10px;color:var(--muted);font-style:italic">${escapeHtml(r.text)}</div>
+        <div class="review-text">${escapeHtml(r.text)}</div>
       `;
-      reviewsContainer.appendChild(card);
-      io.observe(card);
+      reviewsContainer.appendChild(div);
+      observer.observe(div);
     });
   }
-  function showStars(n){
-    const full = Math.floor(n);
-    const half = (n - full) >= 0.5;
-    let s='';
-    for(let i=0;i<full;i++) s += '★';
-    if(half) s += '½';
-    return s;
-  }
-  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
   renderReviews();
 
-  // Review form handling - validate & persist
-  const reviewForm = document.getElementById('reviewForm');
-  reviewForm.addEventListener('submit', (e)=>{
+  document.getElementById('reviewForm').addEventListener('submit', e => {
     e.preventDefault();
     const name = document.getElementById('name').value.trim() || 'Anonymous';
     const rating = parseFloat(document.getElementById('rating').value) || 5;
     const text = document.getElementById('reviewText').value.trim();
-    if(!text){ alert('Please write a review.'); return; }
-    const item = { name, rating, text, date: Date.now() };
-    stored.push(item);
-    localStorage.setItem('truwty_reviews', JSON.stringify(stored));
-    renderReviews();
-    reviewForm.reset();
-    alert('Thank you — review submitted for moderation.');
-  });
-
-  // Clear local reviews for demo
-  document.getElementById('clearReviews').addEventListener('click', ()=>{
-    if(confirm('Remove locally-stored demo reviews?')) {
-      localStorage.removeItem('truwty_reviews');
-      location.reload();
+    if (!text) {
+      alert('Please write a review.');
+      return;
     }
+    reviews.push({ name, rating, text });
+    localStorage.setItem('truwty_reviews', JSON.stringify(reviews));
+    renderReviews();
+    e.target.reset();
+    alert('Thanks! Your review has been submitted.');
   });
 
-  // Lead form (lightweight demo)
-  document.getElementById('leadForm').addEventListener('submit', (e)=>{
+  document.getElementById('leadForm').addEventListener('submit', e => {
     e.preventDefault();
-    alert('Lead sent. I will review and reply on Discord or Email.');
+    alert('Lead sent. I’ll follow up soon.');
     e.target.reset();
   });
 
-  // Set copyright year
-  document.getElementById('copyright').textContent = `© ${new Date().getFullYear()} Truwty — All rights reserved.`;
-
-  // Accessibility helpers: close mobile nav on escape
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape' && primaryNav.classList.contains('open')){
-      primaryNav.classList.remove('open');
-      menuToggle.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  // Make timeline items appear sequentially
-  document.querySelectorAll('.tl-item').forEach((el, i) => {
-    setTimeout(()=> io.observe(el), i*120);
-  });
+  document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
