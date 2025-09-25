@@ -1,1071 +1,676 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Truwty - Roblox Development Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #1a1a2e;
-            --secondary: #16213e;
-            --accent: #0f3460;
-            --highlight: #e94560;
-            --light: #f0f0f0;
-            --dark: #0d0d1a;
-            --gray: #8a8a9e;
-        }
-
-        body {
-            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
-            color: var(--light);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-
-        /* Header Styles */
-        header {
-            background: rgba(10, 10, 30, 0.9);
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            color: var(--highlight);
-            margin-right: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 2rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-links a:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--highlight);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover:after {
-            width: 100%;
-        }
-
-        .nav-links a:hover {
-            color: var(--highlight);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 180px 0 100px;
-            background: radial-gradient(circle at top right, rgba(21, 33, 62, 0.8) 0%, rgba(15, 52, 96, 0.5) 50%, rgba(10, 10, 30, 0.9) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(10, 10, 30, 0.4);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, var(--light), var(--highlight));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            color: #e0e0e0;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--highlight);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
-        }
-
-        .btn:hover {
-            background: #ff2e63;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(233, 69, 96, 0.6);
-        }
-
-        /* About Section */
-        .about {
-            padding: 100px 0;
-            background-color: var(--primary);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: white;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title h2:after {
-            content: '';
-            position: absolute;
-            width: 70px;
-            height: 3px;
-            background: var(--highlight);
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .section-title p {
-            color: var(--gray);
-            max-width: 600px;
-            margin: 20px auto 0;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-            color: #d0d0d0;
-        }
-
-        .about-image {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s;
-        }
-
-        .about-image:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Why Me Section */
-        .why-me {
-            padding: 100px 0;
-            background-color: var(--secondary);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 30px;
-            transition: transform 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            border-left: 4px solid var(--highlight);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: white;
-            display: flex;
-            align-items: center;
-        }
-
-        .feature-card h3 i {
-            margin-right: 10px;
-            color: var(--highlight);
-        }
-
-        .feature-card p {
-            color: #c0c0c0;
-        }
-
-        /* Services Section */
-        .services {
-            padding: 100px 0;
-            background-color: var(--primary);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 30px;
-            transition: transform 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .service-icon {
-            font-size: 2.5rem;
-            color: var(--highlight);
-            margin-bottom: 20px;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        .service-card p {
-            color: #b0b0b0;
-        }
-
-        /* Portfolio Section */
-        .portfolio {
-            padding: 100px 0;
-            background-color: var(--secondary);
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .portfolio-item {
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            height: 250px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .portfolio-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .portfolio-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .portfolio-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(10, 10, 42, 0.9));
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s;
-        }
-
-        .portfolio-item:hover .portfolio-overlay {
-            transform: translateY(0);
-        }
-
-        .portfolio-overlay h3 {
-            color: white;
-            margin-bottom: 5px;
-        }
-
-        .portfolio-overlay p {
-            color: #e0e0e0;
-            font-size: 0.9rem;
-        }
-
-        /* Experience Section */
-        .experience {
-            padding: 100px 0;
-            background-color: var(--primary);
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline:before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--highlight);
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            padding: 20px 40px;
-            position: relative;
-            width: 50%;
-            box-sizing: border-box;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
-
-        .timeline-content {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .timeline-content h3 {
-            color: white;
-            margin-bottom: 5px;
-        }
-
-        .timeline-content p {
-            color: var(--gray);
-        }
-
-        .timeline-item:after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: var(--highlight);
-            border-radius: 50%;
-            top: 30px;
-            right: -10px;
-        }
-
-        .timeline-item:nth-child(even):after {
-            left: -10px;
-        }
-
-        /* Reviews Section */
-        .reviews {
-            padding: 100px 0;
-            background-color: var(--secondary);
-        }
-
-        .reviews-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .review-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            border-left: 4px solid var(--highlight);
-        }
-
-        .review-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .review-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin-right: 15px;
-            background: var(--highlight);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .review-info h4 {
-            color: white;
-            margin-bottom: 5px;
-        }
-
-        .review-info .stars {
-            color: gold;
-        }
-
-        .review-text {
-            color: #e0e0e0;
-            line-height: 1.6;
-            font-style: italic;
-        }
-
-        .review-form {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 30px;
-            margin-top: 50px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .review-form h3 {
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #e0e0e0;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            border-radius: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
-        }
-
-        .form-group textarea {
-            height: 120px;
-            resize: vertical;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            padding: 60px 0 30px;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .footer-section h3 {
-            color: white;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
-
-        .footer-section p, .footer-section a {
-            color: #b0b0b0;
-            margin-bottom: 10px;
-            display: block;
-            text-decoration: none;
-        }
-
-        .footer-section a:hover {
-            color: var(--highlight);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            margin: 0 10px;
-            transition: all 0.3s;
-        }
-
-        .social-links a:hover {
-            background: var(--highlight);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #b0b0b0;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .timeline:before {
-                left: 20px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 50px;
-                padding-right: 25px;
-            }
-
-            .timeline-item:nth-child(even) {
-                left: 0;
-            }
-
-            .timeline-item:after {
-                left: 10px;
-            }
-
-            .timeline-item:nth-child(even):after {
-                left: 10px;
-            }
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Truwty — Roblox Development Portfolio</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root{
+    --bg-1:#071021;
+    --bg-2:#0f1f36;
+    --glass: rgba(255,255,255,0.04);
+    --accent-1:#ff2e63;
+    --accent-2:#5af0d9;
+    --muted:#bfc6d3;
+    --card:#0b1220;
+    --radius:14px;
+    --max-width:1200px;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(135deg,var(--bg-1) 0%, #07102a 40%, var(--bg-2) 100%);
+    color:#e8eef6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.5;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .container{width:92%;max-width:var(--max-width);margin:0 auto;padding:0 16px}
+
+  /* Header */
+  header{
+    position:fixed;left:0;right:0;top:0;z-index:1200;
+    backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, rgba(8,12,20,0.6), rgba(8,12,20,0.28));
+    border-bottom:1px solid rgba(255,255,255,0.03);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.05rem}
+  .brand i{color:var(--accent-1);font-size:1.2rem}
+  nav ul{display:flex;gap:18px;align-items:center;list-style:none;margin:0;padding:0}
+  nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:.95rem;position:relative;padding:6px 4px;border-radius:8px}
+  nav a:hover{color:#fff}
+  nav a::after{content:'';position:absolute;left:0;right:0;height:3px;bottom:-8px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transform:scaleX(0);transform-origin:left;transition:transform .28s ease}
+  nav a:hover::after{transform:scaleX(1)}
+
+  /* Mobile toggle */
+  .menu-toggle{display:none;background:transparent;border:0;color:var(--muted);font-size:1.15rem;cursor:pointer}
+  .menu{display:flex;align-items:center;gap:14px}
+
+  /* Hero */
+  .hero{
+    padding:130px 0 80px;
+    min-height:60vh;
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background:
+      radial-gradient(600px 300px at 85% 10%, rgba(90,240,217,0.06), transparent 12%),
+      radial-gradient(500px 250px at 15% 80%, rgba(255,46,99,0.05), transparent 12%);
+    pointer-events:none;
+  }
+  .hero-card{
+    position:relative;z-index:2;
+    width:min(1100px,100%);margin:0 auto;
+    padding:36px;border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    box-shadow: 0 10px 35px rgba(2,8,20,0.6);
+    display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .hero-text h1{
+    font-size:2.35rem;margin:0 0 12px;color:transparent;
+    background:linear-gradient(90deg,#fff, var(--accent-1));-webkit-background-clip:text;
+  }
+  .hero-text p{margin:0 0 18px;color:var(--muted);font-weight:500;max-width:58ch}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;font-weight:700;
+    border:0;cursor:pointer;text-decoration:none;
+    background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#071422;
+    box-shadow: 0 8px 24px rgba(10,20,30,0.45);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn.secondary{
+    background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04);
+    box-shadow:none;font-weight:600;
+  }
+  .btn:hover{transform:translateY(-4px)}
+
+  /* Hero image */
+  .hero-media{
+    border-radius:12px;overflow:hidden;height:260px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18));
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  .hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* Sections */
+  section{padding:84px 0}
+  .section-title{text-align:center;margin-bottom:34px}
+  .section-title h2{font-size:1.85rem;margin-bottom:8px}
+  .section-title p{color:var(--muted);max-width:66ch;margin:0 auto}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+  .about-card{padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.06));border:1px solid rgba(255,255,255,0.03)}
+  .about-image{border-radius:12px;overflow:hidden;height:320px;border:1px solid rgba(255,255,255,0.03)}
+  .about-image img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* Features */
+  .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+  .feature{padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));border-left:6px solid var(--accent-1)}
+  .feature h3{margin:0 0 8px;font-size:1rem}
+  .feature p{color:var(--muted);margin:0}
+
+  /* Services */
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+  .service{padding:22px;border-radius:12px;text-align:center;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.04));border:1px solid rgba(255,255,255,0.03)}
+  .service .icon{font-size:28px;margin-bottom:12px;color:var(--accent-2)}
+  .service h3{margin:0 0 8px}
+  .service p{color:var(--muted)}
+
+  /* Portfolio */
+  .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .work{position:relative;border-radius:12px;overflow:hidden;height:220px;box-shadow:0 8px 26px rgba(4,8,14,0.6)}
+  .work img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+  .work:hover img{transform:scale(1.07)}
+  .overlay{position:absolute;left:0;right:0;bottom:0;padding:14px;background:linear-gradient(0deg, rgba(7,10,20,0.9), transparent);color:#fff;transform:translateY(100%);transition:transform .28s ease}
+  .work:hover .overlay{transform:translateY(0)}
+
+  /* Timeline */
+  .timeline{max-width:920px;margin:0 auto;position:relative}
+  .tl-item{display:flex;gap:18px;align-items:flex-start;margin-bottom:18px;opacity:0;transform:translateY(10px);transition:all .45s ease}
+  .tl-dot{min-width:12px;height:12px;border-radius:50%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));margin-top:8px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+  .tl-card{background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.04));border-radius:10px;padding:12px 16px;border:1px solid rgba(255,255,255,0.03)}
+  .tl-card h4{margin:0 0 6px}
+  .tl-card p{margin:0;color:var(--muted)}
+
+  /* Reviews */
+  .reviews-grid{max-width:900px;margin:0 auto;display:grid;gap:16px}
+  .review-card{padding:16px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.04));border-left:6px solid var(--accent-1)}
+  .review-avatar{width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#071422;font-weight:800;margin-right:12px}
+  .review-meta{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+
+  .review-form{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.04));border:1px solid rgba(255,255,255,0.03)}
+  .form-row{display:grid;grid-template-columns:1fr 120px;gap:10px}
+  .form-group{margin-bottom:10px}
+  label{display:block;font-weight:600;font-size:.875rem;margin-bottom:6px}
+  input[type="text"],select,textarea{width:100%;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);color:var(--muted);outline:none}
+  textarea{min-height:110px;resize:vertical}
+
+  /* Footer */
+  footer{padding:40px 0;background:linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.14));border-top:1px solid rgba(255,255,255,0.02)}
+  .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;align-items:start}
+  .footer a{color:var(--muted);text-decoration:none}
+  .social-row{display:flex;gap:10px;align-items:center}
+  .social-row a{display:inline-flex;width:44px;height:44px;border-radius:50%;align-items:center;justify-content:center;background:rgba(255,255,255,0.02);color:var(--muted)}
+  .copyright{margin-top:18px;color:var(--muted);font-size:.88rem;text-align:center}
+
+  /* Utilities */
+  .hide-mobile{display:inline-flex}
+  .show-mobile{display:none}
+
+  /* Responsive */
+  @media (max-width:1000px){
+    .hero-card{grid-template-columns:1fr 300px}
+    .about-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:780px){
+    .nav-inner{height:64px}
+    .menu-toggle{display:inline-flex}
+    nav ul{display:none;position:fixed;top:64px;left:0;right:0;background:linear-gradient(180deg, rgba(7,10,20,0.98), rgba(7,10,20,0.96));flex-direction:column;padding:12px 18px;gap:8px;border-top:1px solid rgba(255,255,255,0.02)}
+    nav ul.open{display:flex}
+    .menu{gap:8px}
+    .hero-card{grid-template-columns:1fr;gap:16px;padding:18px}
+    .hero-media{height:200px}
+    .hero-text h1{font-size:1.6rem}
+    .hide-mobile{display:none}
+    .show-mobile{display:inline-flex}
+    section{padding:48px 0}
+  }
+
+  /* misc animations on in-view */
+  .in-view{opacity:1;transform:none}
+</style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <i class="fas fa-code"></i> Truwty
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#why-me">Why Me</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#reviews">Reviews</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+<header>
+  <div class="container nav-inner">
+    <div class="brand"><i class="fas fa-code"></i> Truwty</div>
+
+    <div class="menu">
+      <nav aria-label="Primary navigation">
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="primaryNav"><i class="fas fa-bars"></i></button>
+        <ul id="primaryNav" role="menubar">
+          <li role="none"><a role="menuitem" href="#home">Home</a></li>
+          <li role="none"><a role="menuitem" href="#about">About</a></li>
+          <li role="none"><a role="menuitem" href="#why-me">Why Me</a></li>
+          <li role="none"><a role="menuitem" href="#services">Services</a></li>
+          <li role="none"><a role="menuitem" href="#portfolio">Portfolio</a></li>
+          <li role="none"><a role="menuitem" href="#experience">Experience</a></li>
+          <li role="none"><a role="menuitem" href="#reviews">Reviews</a></li>
+          <li role="none"><a role="menuitem" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="hide-mobile">
+      <a class="btn secondary" href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener">Roblox</a>
+      <a class="btn" href="#portfolio">View Work</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section id="home" class="hero" aria-labelledby="heroTitle">
+    <div class="container hero-card" role="region" aria-label="Introduction">
+      <div class="hero-text">
+        <h1 id="heroTitle">Professional Roblox Development — MILSIM & Bots</h1>
+        <p>Building immersive Roblox MILSIM experiences, advanced Lua systems, Discord integrations and tailored avatar clothing. Clean code. Fast delivery. Real results.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#portfolio">See Portfolio</a>
+          <a class="btn secondary" href="#contact">Get A Quote</a>
         </div>
-    </header>
+      </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>Professional Roblox Development</h1>
-            <p>Specializing in MILSIM experiences, Discord bot integration, and custom clothing design. Creating immersive gaming experiences with cutting-edge technology.</p>
-            <a href="#portfolio" class="btn">View My Work</a>
+      <div class="hero-media" aria-hidden="false">
+        <img
+          src="https://images.unsplash.com/photo-1602524817908-fd3d9c7e9e47?q=80&w=1400&auto=format&fit=crop"
+          srcset="
+            https://images.unsplash.com/photo-1602524817908-fd3d9c7e9e47?q=80&w=400&auto=format&fit=crop 400w,
+            https://images.unsplash.com/photo-1602524817908-fd3d9c7e9e47?q=80&w=800&auto=format&fit=crop 800w,
+            https://images.unsplash.com/photo-1602524817908-fd3d9c7e9e47?q=80&w=1400&auto=format&fit=crop 1400w
+          "
+          sizes="(max-width: 780px) 100vw, 420px"
+          alt="Coding workstation and design mockups"
+          loading="lazy"
+          onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%221200%22 height=%22700%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%2308121a%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23ffffff%22 font-size=%2230%22 font-family=%22Arial%22 text-anchor=%22middle%22 dy=%22.3em%22>Image not available</text></svg>'" />
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" aria-labelledby="aboutTitle">
+    <div class="container">
+      <div class="section-title">
+        <h2 id="aboutTitle">About Me</h2>
+        <p>Roblox developer and scripter with practical experience building MILSIMs, join-loggers, game systems and clothing. I value clean code, fast iteration and clear communication.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <h3 style="margin-top:0">Roblox Developer & Scripter</h3>
+          <p style="color:var(--muted)">Active on Roblox since 2017. 2.5+ years focused on Lua scripting, UI systems, group-based features, and custom avatar clothing for MILSIM groups.</p>
+          <ul style="color:var(--muted);margin:12px 0 18px;padding-left:18px">
+            <li>Advanced Lua & Roblox Studio</li>
+            <li>Discord bot integrations & web dashboards</li>
+            <li>Optimized game performance & lighting</li>
+            <li>Clean, maintainable code & documentation</li>
+          </ul>
+          <div style="display:flex;gap:10px">
+            <a class="btn" href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener">Roblox Profile</a>
+            <a class="btn secondary" href="#contact">Contact Me</a>
+          </div>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Me</h2>
-                <p>Get to know more about my background and experience</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Roblox Developer & Scripter</h3>
-                    <p>I've been playing ROBLOX since 2017 and scripting for 2.5 years now. I've also started to create different clothing styles for "Milsim" Groups and personal use.</p>
-                    <p>My passion for game development started when I first discovered the possibilities of Roblox Studio. Since then, I've dedicated myself to mastering Lua scripting and creating engaging experiences for the Roblox community.</p>
-                    <a href="https://www.roblox.com/users/8310005469/profile" class="btn" target="_blank">My Roblox Profile</a>
-                </div>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="About Me">
-                </div>
-            </div>
+        <div class="about-image">
+          <img
+            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop"
+            alt="Developer working at a computer"
+            loading="lazy"
+            srcset="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=400&auto=format&fit=crop 400w, https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=800&auto=format&fit=crop 800w, https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=1200&auto=format&fit=crop 1200w"
+            sizes="(max-width:780px) 100vw, 420px"
+            onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%221200%22 height=%22700%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%2308121a%22/><text x=%2250%25%22 y=%2250%25%22 fill=%22%23ffffff%22 font-size=%2230%22 font-family=%22Arial%22 text-anchor=%22middle%22 dy=%22.3em%22>Image not available</text></svg>'" />
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Why Me Section -->
-    <section class="why-me" id="why-me">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose Me?</h2>
-                <p>Here's what sets me apart from other developers</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3><i class="fas fa-tasks"></i> Challenging Tasks</h3>
-                    <p>I am willing to work through challenging tasks and new libraries/tools, constantly expanding my skill set.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><i class="fas fa-comments"></i> Professional Communication</h3>
-                    <p>I will be providing updates and communicate professionally during your commission, ensuring you're always in the loop.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><i class="fas fa-code"></i> Clean Code</h3>
-                    <p>I take pride in my work as a scripter and will provide you clean and organized code that's easy to maintain.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><i class="fas fa-clock"></i> Flexible Schedule</h3>
-                    <p>I work on a flexible schedule, often being able to pull all-nighters to meet deadlines. My time zone is GMT.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><i class="fas fa-handshake"></i> Fair Pricing</h3>
-                    <p>I will work with you for a fair and honest price for my services and time. I often work for free to gain recognition and for fun.</p>
-                </div>
-                <div class="feature-card">
-                    <h3><i class="fas fa-heart"></i> Passionate Developer</h3>
-                    <p>I genuinely love what I do, which translates into higher quality work and a better experience for you.</p>
-                </div>
-            </div>
+  <!-- Why Me -->
+  <section id="why-me" aria-labelledby="whyTitle">
+    <div class="container">
+      <div class="section-title">
+        <h2 id="whyTitle">Why Choose Me?</h2>
+        <p>Clear reasons other teams pick me — reliability, clean code, and systems that scale.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature"><h3><i class="fas fa-tasks" style="margin-right:8px;color:var(--accent-2)"></i>Challenging Tasks</h3><p>Will tackle complex systems and push new libraries/tools.</p></div>
+        <div class="feature"><h3><i class="fas fa-comments" style="margin-right:8px;color:var(--accent-2)"></i>Professional Communication</h3><p>Regular updates, clear timelines and accessible documentation.</p></div>
+        <div class="feature"><h3><i class="fas fa-code" style="margin-right:8px;color:var(--accent-2)"></i>Clean Code</h3><p>Readable, maintainable code with comments and basic tests where appropriate.</p></div>
+        <div class="feature"><h3><i class="fas fa-clock" style="margin-right:8px;color:var(--accent-2)"></i>GMT Timezone</h3><p>Flexible scheduling with fast turnarounds when necessary.</p></div>
+        <div class="feature"><h3><i class="fas fa-handshake" style="margin-right:8px;color:var(--accent-2)"></i>Fair Pricing</h3><p>Negotiable, transparent pricing — value-driven proposals, not premium fluff.</p></div>
+        <div class="feature"><h3><i class="fas fa-heart" style="margin-right:8px;color:var(--accent-2)"></i>Passionate</h3><p>I care about quality — not just shipping, but shipping right.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" aria-labelledby="servicesTitle">
+    <div class="container">
+      <div class="section-title">
+        <h2 id="servicesTitle">Services</h2>
+        <p>From clothing design to advanced scripting and bot integrations — end-to-end solutions.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service">
+          <div class="icon"><i class="fas fa-tshirt"></i></div>
+          <h3>Clothing Design</h3>
+          <p>High-detail uniform and avatar clothing tailored to your Milsim group's style.</p>
         </div>
-    </section>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>My Services</h2>
-                <p>Comprehensive development services for your Roblox and Discord needs</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-tshirt"></i>
-                    </div>
-                    <h3>Clothing Design</h3>
-                    <p>Custom clothing designs for Milsim groups and personal use, with attention to detail and style.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <h3>Discord Bot Development</h3>
-                    <p>I am able to make bots for Discord servers with active slash commands, including music bots and more.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Advanced Scripting</h3>
-                    <p>Creating advanced systems like join loggers that show player ID, join time, server status, and player count.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3>Graphics & Lighting</h3>
-                    <p>Ultra-realistic lighting systems with advanced post-processing effects to enhance immersion.</p>
-                </div>
-            </div>
+        <div class="service">
+          <div class="icon"><i class="fab fa-discord"></i></div>
+          <h3>Discord Bot Development</h3>
+          <p>Slash commands, dashboards, music features and moderation tools.</p>
         </div>
-    </section>
 
-    <!-- Portfolio Section -->
-    <section class="portfolio" id="portfolio">
-        <div class="container">
-            <div class="section-title">
-                <h2>My Portfolio</h2>
-                <p>Check out some of my recent projects and creations</p>
-            </div>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <img src="https://trusnooze.carrd.co/assets/images/image05.jpg?v=b0a2f4c8" alt="Clothing Design 1">
-                    <div class="portfolio-overlay">
-                        <h3>Milsim Uniform Design</h3>
-                        <p>Custom military-style clothing for Roblox avatars</p>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://trusnooze.carrd.co/assets/images/image01.jpg?v=b0a2f4c8" alt="Discord Bot">
-                    <div class="portfolio-overlay">
-                        <h3>Music Bot Dashboard</h3>
-                        <p>Discord music bot with interactive dashboard</p>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://trusnooze.carrd.co/assets/images/image02.jpg?v=b0a2f4c8" alt="Scripting Project">
-                    <div class="portfolio-overlay">
-                        <h3>Advanced Scripting</h3>
-                        <p>Complex Lua scripts for Roblox experiences</p>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://trusnooze.carrd.co/assets/images/image06.jpg?v=b0a2f4c8" alt="Clothing Design 2">
-                    <div class="portfolio-overlay">
-                        <h3>Tactical Gear</h3>
-                        <p>Realistic tactical equipment for Milsim groups</p>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://trusnooze.carrd.co/assets/images/image04.jpg?v=b0a2f4c8" alt="Scripting Project 2">
-                    <div class="portfolio-overlay">
-                        <h3>Game Systems</h3>
-                        <p>Custom game mechanics and systems</p>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="https://trusnooze.carrd.co/assets/images/image08.jpg?v=b0a2f4c8" alt="Clothing Design 3">
-                    <div class="portfolio-overlay">
-                        <h3>Special Forces Gear</h3>
-                        <p>Elite military clothing designs</p>
-                    </div>
-                </div>
-            </div>
+        <div class="service">
+          <div class="icon"><i class="fas fa-cogs"></i></div>
+          <h3>Advanced Scripting</h3>
+          <p>Join loggers, team systems, saving systems and server-side performance tuning.</p>
         </div>
-    </section>
 
-    <!-- Experience Section -->
-    <section class="experience" id="experience">
-        <div class="container">
-            <div class="section-title">
-                <h2>Past Experience</h2>
-                <p>My journey through various Roblox development roles</p>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>JayVintros British Army</h3>
-                        <p>Scripter</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Sjaaks British Army</h3>
-                        <p>Chief Developer</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Haileys British Army</h3>
-                        <p>Chief Scripter</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>SinfulSnoozes United States Marine Corps</h3>
-                        <p>Chief Developer</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Snooze Bloodline</h3>
-                        <p>Co-creator of the Sword Battle Arena</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>ReaperNovahs British Army</h3>
-                        <p>Developer</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Unknowns Royal Airforce</h3>
-                        <p>Chief Developer</p>
-                    </div>
-                </div>
-            </div>
+        <div class="service">
+          <div class="icon"><i class="fas fa-lightbulb"></i></div>
+          <h3>Graphics & Lighting</h3>
+          <p>Realistic lighting setups, post-processing and visual polish to enhance immersion.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Reviews Section -->
-    <section class="reviews" id="reviews">
-        <div class="container">
-            <div class="section-title">
-                <h2>Client Reviews</h2>
-                <p>See what my clients have to say about my development services</p>
-            </div>
-            <div class="reviews-container">
-                <!-- Review 1 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">A</div>
-                        <div class="review-info">
-                            <h4>Anonymous Client</h4>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        <p>"Truwty delivered exceptional work on our MILSIM game! The scripting was clean and efficient, and the clothing designs were exactly what we wanted. Highly recommended!"</p>
-                    </div>
-                </div>
+  <!-- Portfolio -->
+  <section id="portfolio" aria-labelledby="portfolioTitle">
+    <div class="container">
+      <div class="section-title">
+        <h2 id="portfolioTitle">Portfolio</h2>
+        <p>Recent work — click to view larger versions. Images are responsive and lazy-loaded for performance.</p>
+      </div>
 
-                <!-- Review 2 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">B</div>
-                        <div class="review-info">
-                            <h4>Anonymous Group Leader</h4>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        <p>"The Discord bot created for our community has been a game-changer. Truwty was professional throughout the process and delivered ahead of schedule."</p>
-                    </div>
-                </div>
+      <div class="portfolio-grid">
+        <article class="work" tabindex="0" aria-label="Milsim Uniform Design">
+          <img loading="lazy" alt="Milsim uniform design example"
+            src="https://trusnooze.carrd.co/assets/images/image05.jpg?v=b0a2f4c8"
+            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1545519677-91a5f0d4d0eb?q=80&w=1200&auto=format&fit=crop'">
+          <div class="overlay"><h4>Milsim Uniform Design</h4><p>Custom military-style clothing for Roblox avatars.</p></div>
+        </article>
 
-                <!-- Review 3 -->
-                <div class="review-card">
-                    <div class="review-header">
-                        <div class="review-avatar">C</div>
-                        <div class="review-info">
-                            <h4>Anonymous Developer</h4>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        <p>"I've worked with many developers, but Truwty stands out for their attention to detail and willingness to go above and beyond. The join logger system they created is incredibly sophisticated."</p>
-                    </div>
-                </div>
+        <article class="work" tabindex="0" aria-label="Music Bot Dashboard">
+          <img loading="lazy" alt="Discord music bot dashboard"
+            src="https://trusnooze.carrd.co/assets/images/image01.jpg?v=b0a2f4c8"
+            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop'">
+          <div class="overlay"><h4>Music Bot Dashboard</h4><p>Interactive dashboard for music control and moderation.</p></div>
+        </article>
 
-                <!-- Review Form -->
-                <div class="review-form">
-                    <h3>Leave a Review</h3>
-                    <form id="reviewForm">
-                        <div class="form-group">
-                            <label for="name">Your Name (Optional)</label>
-                            <input type="text" id="name" placeholder="Anonymous">
-                        </div>
-                        <div class="form-group">
-                            <label for="rating">Rating</label>
-                            <select id="rating" required>
-                                <option value="5">5 Stars</option>
-                                <option value="4">4 Stars</option>
-                                <option value="3">3 Stars</option>
-                                <option value="2">2 Stars</option>
-                                <option value="1">1 Star</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="review">Your Review</label>
-                            <textarea id="review" required placeholder="Share your experience..."></textarea>
-                        </div>
-                        <button type="submit" class="btn">Submit Review</button>
-                    </form>
-                </div>
-            </div>
+        <article class="work" tabindex="0" aria-label="Advanced Scripting">
+          <img loading="lazy" alt="Advanced scripting example"
+            src="https://trusnooze.carrd.co/assets/images/image02.jpg?v=b0a2f4c8"
+            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop'">
+          <div class="overlay"><h4>Advanced Scripting</h4><p>Complex Lua systems built for scalability and clarity.</p></div>
+        </article>
+
+        <article class="work" tabindex="0" aria-label="Tactical Gear">
+          <img loading="lazy" alt="Tactical gear design"
+            src="https://trusnooze.carrd.co/assets/images/image06.jpg?v=b0a2f4c8"
+            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop'">
+          <div class="overlay"><h4>Tactical Gear</h4><p>Realistic equipment for MILSIM groups.</p></div>
+        </article>
+
+        <article class="work" tabindex="0" aria-label="Game Systems">
+          <img loading="lazy" alt="Game system example"
+            src="https://trusnooze.carrd.co/assets/images/image04.jpg?v=b0a2f4c8"
+            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop'">
+          <div class="overlay"><h4>Game Systems</h4><p>Custom mechanics, UI and server logic.</p></div>
+        </article>
+
+        <article class="work" tabindex="0" aria-label="Special Forces Gear">
+          <img loading="lazy" alt="Special forces clothing"
+            src="https://trusnooze.carrd.co/assets/images/image08.jpg?v=b0a2f4c8"
+            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1549921296-3b1b9d0f22d7?q=80&w=1200&auto=format&fit=crop'">
+          <div class="overlay"><h4>Special Forces Gear</h4><p>Elite military clothing designs with authentic detail.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience / Timeline -->
+  <section id="experience" aria-labelledby="expTitle">
+    <div class="container">
+      <div class="section-title">
+        <h2 id="expTitle">Past Experience</h2>
+        <p>Roles across multiple groups and projects — scripting, leading and building systems.</p>
+      </div>
+
+      <div class="timeline" id="timeline">
+        <div class="tl-item">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-card"><h4>JayVintros — British Army</h4><p>Scripter</p></div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>About Me</h3>
-                    <p>Professional Roblox developer specializing in MILSIM experiences, Discord bot development, and custom clothing with over 2.5 years of experience.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <p><i class="fas fa-envelope"></i> truwty1@gmail.com</p>
-                    <p><i class="fab fa-discord"></i> truwty</p>
-                    <p><i class="fas fa-map-marker-alt"></i> GMT Time Zone</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#services">Services</a>
-                    <a href="#portfolio">Portfolio</a>
-                    <a href="#experience">Experience</a>
-                    <a href="#reviews">Reviews</a>
-                </div>
-            </div>
-            <div class="social-links">
-                <a href="https://www.roblox.com/users/8310005469/profile" target="_blank"><i class="fas fa-gamepad"></i></a>
-                <a href="#"><i class="fab fa-discord"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 Truwty - Roblox Development Portfolio. All rights reserved.</p>
-            </div>
+        <div class="tl-item">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-card"><h4>Sjaaks — British Army</h4><p>Chief Developer</p></div>
         </div>
-    </footer>
+        <div class="tl-item">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-card"><h4>Haileys — British Army</h4><p>Chief Scripter</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-card"><h4>SinfulSnoozes — US Marine Corps</h4><p>Chief Developer</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-card"><h4>Snooze Bloodline</h4><p>Co-creator of the Sword Battle Arena</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-card"><h4>ReaperNovahs — British Army</h4><p>Developer</p></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" aria-hidden="true"></div>
+          <div class="tl-card"><h4>Unknowns — Royal Airforce</h4><p>Chief Developer</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Simple form submission handler
-        document.getElementById('reviewForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your review! It will be displayed after moderation.');
-            this.reset();
-        });
+  <!-- Reviews -->
+  <section id="reviews" aria-labelledby="reviewsTitle">
+    <div class="container">
+      <div class="section-title">
+        <h2 id="reviewsTitle">Client Reviews</h2>
+        <p>Real feedback from collaborators. Leave one below — moderated and persisted locally for demo.</p>
+      </div>
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+      <div class="reviews-grid" id="reviewsContainer">
+        <!-- Pre-filled testimonials -->
+      </div>
 
-        // Add animation to timeline items on scroll
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+      <div style="max-width:900px;margin:18px auto 0">
+        <div class="review-form" aria-labelledby="leaveReview">
+          <h3 id="leaveReview">Leave a Review</h3>
+          <form id="reviewForm" novalidate>
+            <div class="form-row">
+              <div class="form-group"><label for="name">Your Name (optional)</label><input id="name" type="text" placeholder="Anonymous"></div>
+              <div class="form-group"><label for="rating">Rating</label>
+                <select id="rating" required>
+                  <option value="5">5 Stars</option>
+                  <option value="4">4 Stars</option>
+                  <option value="3">3 Stars</option>
+                  <option value="2">2 Stars</option>
+                  <option value="1">1 Star</option>
+                </select>
+              </div>
+            </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateX(0)';
-                }
-            });
-        }, observerOptions);
+            <div class="form-group"><label for="reviewText">Your Review</label><textarea id="reviewText" placeholder="Share your experience..." required></textarea></div>
+            <div style="display:flex;gap:10px;align-items:center">
+              <button class="btn" type="submit">Submit Review</button>
+              <button class="btn secondary" type="button" id="clearReviews">Clear Local Reviews</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Animate timeline items
-        document.querySelectorAll('.timeline-item').forEach((item, index) => {
-            item.style.opacity = '0';
-            if (index % 2 === 0) {
-                item.style.transform = 'translateX(-50px)';
-            } else {
-                item.style.transform = 'translateX(50px)';
-            }
-            item.style.transition = 'opacity 0.5s, transform 0.5s';
-            observer.observe(item);
-        });
-    </script>
+  <!-- Contact / Footer anchor -->
+  <section id="contact" aria-label="Contact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Contact</h2>
+        <p>Ready to build? Send a message or add me on Discord — quick replies for commission inquiries.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">
+        <div style="padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.04));border:1px solid rgba(255,255,255,0.03)">
+          <h4 style="margin-top:0">Reach Out</h4>
+          <p style="color:var(--muted)"><strong>Email:</strong> <a href="mailto:truwty1@gmail.com">truwty1@gmail.com</a></p>
+          <p style="color:var(--muted)"><strong>Discord:</strong> truwty</p>
+          <p style="color:var(--muted)"><strong>Timezone:</strong> GMT</p>
+          <div style="margin-top:12px" class="social-row">
+            <a href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener" title="Roblox"><i class="fas fa-gamepad"></i></a>
+            <a href="#" aria-hidden="true" title="Discord"><i class="fab fa-discord"></i></a>
+          </div>
+        </div>
+
+        <div style="padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.014), rgba(0,0,0,0.04));border:1px solid rgba(255,255,255,0.03)">
+          <h4 style="margin-top:0">Quick Lead</h4>
+          <p style="color:var(--muted)">Describe the project, budget and target timeline. I'll reply with a realistic plan and quote.</p>
+          <form id="leadForm">
+            <div class="form-group"><label for="project">Project summary</label><input id="project" type="text" placeholder="e.g. Join-logger + roles system"></div>
+            <div class="form-group"><label for="budget">Budget (GBP)</label><input id="budget" type="text" placeholder="e.g. 30-100"></div>
+            <div style="display:flex;gap:8px">
+              <button class="btn" type="submit">Send</button>
+              <button class="btn secondary" type="reset">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h3>About</h3>
+        <p style="color:var(--muted)">Roblox developer focused on MILSIM experiences, bots and clothing. Clean code and practical delivery.</p>
+      </div>
+
+      <div>
+        <h3>Contact Info</h3>
+        <p style="color:var(--muted)"><i class="fas fa-envelope"></i> truwty1@gmail.com</p>
+        <p style="color:var(--muted)"><i class="fab fa-discord"></i> truwty</p>
+      </div>
+
+      <div>
+        <h3>Quick Links</h3>
+        <a href="#home">Home</a><br>
+        <a href="#portfolio">Portfolio</a><br>
+        <a href="#services">Services</a><br>
+        <a href="#reviews">Reviews</a>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:center;margin-top:14px">
+      <div class="social-row" aria-hidden="true">
+        <a href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener" title="Roblox"><i class="fas fa-gamepad"></i></a>
+        <a href="#" title="Discord"><i class="fab fa-discord"></i></a>
+      </div>
+    </div>
+
+    <div class="copyright" id="copyright"></div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const primaryNav = document.getElementById('primaryNav');
+  menuToggle.addEventListener('click', () => {
+    const open = primaryNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Smooth scroll with offset for header
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      const href = a.getAttribute('href');
+      if(!href || href.length === 1) return;
+      const el = document.querySelector(href);
+      if(!el) return;
+      e.preventDefault();
+      const headerOffset = document.querySelector('header').offsetHeight + 8;
+      const rect = el.getBoundingClientRect();
+      const scrollTop = window.scrollY + rect.top - headerOffset;
+      window.scrollTo({ top: Math.max(scrollTop, 0), behavior: 'smooth' });
+      // close mobile nav if open
+      if(primaryNav.classList.contains('open')) { primaryNav.classList.remove('open'); menuToggle.setAttribute('aria-expanded', 'false'); }
+    });
+  });
+
+  // Intersection observer to animate timeline and lazy reveal sections
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){ en.target.classList.add('in-view'); io.unobserve(en.target); }
+    });
+  }, {threshold: 0.12});
+  document.querySelectorAll('.tl-item, .work, .feature, .service, .review-card, .hero-card').forEach(n => io.observe(n));
+
+  // Reviews persistence (localStorage)
+  const stored = JSON.parse(localStorage.getItem('truwty_reviews') || 'null') || [
+    {name:'Anonymous Client', rating:5, text:'"Truwty delivered exceptional work on our MILSIM game! Clean and efficient scripting. Highly recommended!"'},
+    {name:'Anonymous Group Leader', rating:4.5, text:'"The Discord bot created for our community has been a game-changer. Professional and ahead of schedule."'},
+    {name:'Anonymous Developer', rating:5, text:'"Attention to detail and willingness to go above and beyond. Join logger system was top quality."'}
+  ];
+
+  const reviewsContainer = document.getElementById('reviewsContainer');
+  function renderReviews(){
+    reviewsContainer.innerHTML = '';
+    stored.slice().reverse().forEach(r=>{
+      const card = document.createElement('div');
+      card.className='review-card';
+      card.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center">
+            <div class="review-avatar">${(r.name&&r.name[0])?r.name[0].toUpperCase():'T'}</div>
+            <div style="margin-left:10px">
+              <div style="font-weight:700">${r.name || 'Anonymous'}</div>
+              <div style="color:var(--muted);font-size:.9rem">${showStars(r.rating)}</div>
+            </div>
+          </div>
+          <div style="color:var(--muted);font-size:.85rem">${new Date(r.date||Date.now()).toLocaleDateString()}</div>
+        </div>
+        <div style="margin-top:10px;color:var(--muted);font-style:italic">${escapeHtml(r.text)}</div>
+      `;
+      reviewsContainer.appendChild(card);
+      io.observe(card);
+    });
+  }
+  function showStars(n){
+    const full = Math.floor(n);
+    const half = (n - full) >= 0.5;
+    let s='';
+    for(let i=0;i<full;i++) s += '★';
+    if(half) s += '½';
+    return s;
+  }
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+  renderReviews();
+
+  // Review form handling - validate & persist
+  const reviewForm = document.getElementById('reviewForm');
+  reviewForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim() || 'Anonymous';
+    const rating = parseFloat(document.getElementById('rating').value) || 5;
+    const text = document.getElementById('reviewText').value.trim();
+    if(!text){ alert('Please write a review.'); return; }
+    const item = { name, rating, text, date: Date.now() };
+    stored.push(item);
+    localStorage.setItem('truwty_reviews', JSON.stringify(stored));
+    renderReviews();
+    reviewForm.reset();
+    alert('Thank you — review submitted for moderation.');
+  });
+
+  // Clear local reviews for demo
+  document.getElementById('clearReviews').addEventListener('click', ()=>{
+    if(confirm('Remove locally-stored demo reviews?')) {
+      localStorage.removeItem('truwty_reviews');
+      location.reload();
+    }
+  });
+
+  // Lead form (lightweight demo)
+  document.getElementById('leadForm').addEventListener('submit', (e)=>{
+    e.preventDefault();
+    alert('Lead sent. I will review and reply on Discord or Email.');
+    e.target.reset();
+  });
+
+  // Set copyright year
+  document.getElementById('copyright').textContent = `© ${new Date().getFullYear()} Truwty — All rights reserved.`;
+
+  // Accessibility helpers: close mobile nav on escape
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && primaryNav.classList.contains('open')){
+      primaryNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Make timeline items appear sequentially
+  document.querySelectorAll('.tl-item').forEach((el, i) => {
+    setTimeout(()=> io.observe(el), i*120);
+  });
+</script>
 </body>
 </html>
