@@ -892,6 +892,13 @@
             .btn {
                 padding: 12px 24px;
             }
+            .timeline::before {
+                left: 15px;
+            }
+            .tl-dot {
+                width: 16px;
+                height: 16px;
+            }
         }
         @media (max-width: 480px) {
             .hero-content h1 {
@@ -911,6 +918,12 @@
             }
             .features-grid, .services-grid, .portfolio-grid {
                 grid-template-columns: 1fr;
+            }
+            .tl-item {
+                gap: 15px;
+            }
+            .tl-card {
+                padding: 20px;
             }
         }
     </style>
@@ -1188,18 +1201,20 @@
             });
         });
 
-        // Intersection observer for animations
+        // Intersection observer for animations - FIXED
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(ent => {
                 if (ent.isIntersecting) {
                     ent.target.classList.add('in-view');
-                    observer.unobserve(ent.target);
                 }
             });
         }, { threshold: 0.15 });
 
-        document.querySelectorAll('.tl-item, .feature, .service, .work, .review-card').forEach(el => {
-            observer.observe(el);
+        // Observe all elements that need animation
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tl-item, .feature, .service, .work, .review-card').forEach(el => {
+                observer.observe(el);
+            });
         });
 
         // Reviews storage & rendering
@@ -1261,11 +1276,21 @@
 
         document.getElementById('leadForm').addEventListener('submit', e => {
             e.preventDefault();
-            alert('Lead sent. I'll follow up soon.');
+            alert('Lead sent. I\'ll follow up soon.');
             e.target.reset();
         });
 
         document.getElementById('yr').textContent = new Date().getFullYear();
+
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
     </script>
 </body>
 </html>
