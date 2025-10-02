@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Truwty — Roblox Dev Portfolio</title>
+    <title>Truwty — Professional Roblox Developer</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -951,6 +951,48 @@
             color: var(--muted);
             line-height: 1.6;
         }
+        /* Tab Navigation */
+        .tab-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .tab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 12px 24px;
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            color: var(--muted);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.06);
+            color: var(--fg);
+        }
+        .tab-btn.active {
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            color: var(--bg-a);
+            box-shadow: var(--shadow);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         /* Responsive */
         @media (max-width: 1024px) {
             .hero-content h1 {
@@ -1017,6 +1059,15 @@
             .game-gallery {
                 grid-template-columns: 1fr;
             }
+            .tab-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            .tab-btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
         }
         @media (max-width: 480px) {
             .hero-content h1 {
@@ -1056,11 +1107,9 @@
                 <ul id="navList">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#why-me">Why Me</a></li>
                     <li><a href="#services">Services</a></li>
                     <li><a href="#portfolio">Portfolio</a></li>
                     <li><a href="#my-game">My Game</a></li>
-                    <li><a href="#web-dev">Web Dev</a></li>
                     <li><a href="#experience">Experience</a></li>
                     <li><a href="#reviews">Reviews</a></li>
                     <li><a href="#contact">Contact</a></li>
@@ -1104,48 +1153,114 @@
                 </div>
             </div>
         </section>
-        <section id="why-me">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Why Choose Me?</h2>
-                    <p>Here's what sets my work apart from the rest.</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature"><h3><i class="fas fa-tasks"></i> Challenging Tasks</h3><p>I take complex problems head-on. New libs, edge cases, no problem.</p></div>
-                    <div class="feature"><h3><i class="fas fa-comments"></i> Clear Communication</h3><p>You'll always know where the project stands; no radio silence.</p></div>
-                    <div class="feature"><h3><i class="fas fa-code"></i> Clean Code</h3><p>Your future self (or another dev) will thank you for readable, commented code.</p></div>
-                    <div class="feature"><h3><i class="fas fa-clock"></i> GMT Timezone</h3><p>I operate around your timeline — ready when you are.</p></div>
-                    <div class="feature"><h3><i class="fas fa-handshake"></i> Fair Pricing</h3><p>No fluff. Just value. I price based on work, not buzzwords.</p></div>
-                    <div class="feature"><h3><i class="fas fa-heart"></i> Passionate</h3><p>I build because it matters. Every line counts.</p></div>
-                </div>
-            </div>
-        </section>
         <section id="services">
             <div class="container">
                 <div class="section-title">
                     <h2>Services</h2>
                     <p>From concept to launch — full stack solutions for Roblox, bots, systems & visuals.</p>
                 </div>
-                <div class="services-grid">
-                    <div class="service">
-                        <div class="icon"><i class="fas fa-tshirt"></i></div>
-                        <h3>Clothing Design</h3>
-                        <p>Custom MILSIM avatar clothing — clean, thematic, optimized.</p>
+                <div class="tab-container">
+                    <div class="tab-nav">
+                        <button class="tab-btn active" data-tab="roblox">Roblox Development</button>
+                        <button class="tab-btn" data-tab="discord">Discord Bots</button>
+                        <button class="tab-btn" data-tab="web">Web Development</button>
+                        <button class="tab-btn" data-tab="graphics">Graphics & Design</button>
                     </div>
-                    <div class="service">
-                        <div class="icon"><i class="fab fa-discord"></i></div>
-                        <h3>Discord Bots</h3>
-                        <p>Slash commands, dashboards, moderation, music control and more.</p>
+                    <div class="tab-content active" id="roblox">
+                        <div class="services-grid">
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-tshirt"></i></div>
+                                <h3>Clothing Design</h3>
+                                <p>Custom MILSIM avatar clothing — clean, thematic, optimized.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-cogs"></i></div>
+                                <h3>Advanced Scripting</h3>
+                                <p>Server-side logic, join loggers, team systems, and custom modules.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-gamepad"></i></div>
+                                <h3>Game Systems</h3>
+                                <p>Custom mechanics, UI systems, and interactive elements for immersive gameplay.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-lightbulb"></i></div>
+                                <h3>Graphics & Lighting</h3>
+                                <p>Post-processing, environment effects, lighting tweaks to polish visuals.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="service">
-                        <div class="icon"><i class="fas fa-cogs"></i></div>
-                        <h3>Advanced Scripting</h3>
-                        <p>Server-side logic, join loggers, team systems, and custom modules.</p>
+                    <div class="tab-content" id="discord">
+                        <div class="services-grid">
+                            <div class="service">
+                                <div class="icon"><i class="fab fa-discord"></i></div>
+                                <h3>Custom Bots</h3>
+                                <p>Slash commands, dashboards, moderation, music control and more.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-database"></i></div>
+                                <h3>Integration Systems</h3>
+                                <p>Connect Discord with Roblox groups for seamless user management.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-chart-line"></i></div>
+                                <h3>Analytics & Logging</h3>
+                                <p>Track user activity, server statistics, and automated reporting.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-tools"></i></div>
+                                <h3>Bot Maintenance</h3>
+                                <p>Regular updates, bug fixes, and feature additions for existing bots.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="service">
-                        <div class="icon"><i class="fas fa-lightbulb"></i></div>
-                        <h3>Graphics & Lighting</h3>
-                        <p>Post-processing, environment effects, lighting tweaks to polish visuals.</p>
+                    <div class="tab-content" id="web">
+                        <div class="services-grid">
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-laptop-code"></i></div>
+                                <h3>Portfolio Websites</h3>
+                                <p>Showcase your work with a custom portfolio website that highlights your skills and projects.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-shopping-cart"></i></div>
+                                <h3>E-commerce Solutions</h3>
+                                <p>Build online stores with secure payment processing and inventory management.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-mobile-alt"></i></div>
+                                <h3>Responsive Design</h3>
+                                <p>Create websites that look great and function perfectly on all devices.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-rocket"></i></div>
+                                <h3>Performance Optimization</h3>
+                                <p>Ensure your website loads quickly and runs smoothly with optimized code.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="graphics">
+                        <div class="services-grid">
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-palette"></i></div>
+                                <h3>UI/UX Design</h3>
+                                <p>Create intuitive and visually appealing user interfaces for games and applications.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-drafting-compass"></i></div>
+                                <h3>Graphic Design</h3>
+                                <p>Logos, banners, promotional materials, and visual branding elements.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-video"></i></div>
+                                <h3>Video Editing</h3>
+                                <p>Trailers, promotional videos, and gameplay montages with professional editing.</p>
+                            </div>
+                            <div class="service">
+                                <div class="icon"><i class="fas fa-icons"></i></div>
+                                <h3>Icon & Asset Creation</h3>
+                                <p>Custom icons, buttons, and visual elements for games and applications.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1166,7 +1281,7 @@
                         <div class="overlay"><h4>Music Bot Dashboard</h4><p>Interactive control and visualization UI.</p></div>
                     </div>
                     <div class="work">
-                        <img src="https://trusnooze.carrd.co/assets/images/image02.jpg?v=b0a2f4c8" alt="Advanced Scripting</ loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x220?text=Image'">
+                        <img src="https://trusnooze.carrd.co/assets/images/image02.jpg?v=b0a2f4c8" alt="Advanced Scripting" loading="lazy" onerror="this.onerror=null;this.src='https://via.placeholder.com/400x220?text=Image'">
                         <div class="overlay"><h4>Advanced Scripting</h4><p>Scalable Lua modules & systems.</p></div>
                     </div>
                     <div class="work">
@@ -1236,41 +1351,6 @@
                 </div>
             </div>
         </section>
-        <section id="web-dev">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Website Development</h2>
-                    <p>Professional web development services for individuals and businesses</p>
-                </div>
-                <div class="web-dev-section">
-                    <div class="web-dev-grid">
-                        <div class="web-dev-card">
-                            <div class="web-dev-icon"><i class="fas fa-laptop-code"></i></div>
-                            <h3>Portfolio Websites</h3>
-                            <p>Showcase your work with a custom portfolio website that highlights your skills and projects in the best light.</p>
-                        </div>
-                        <div class="web-dev-card">
-                            <div class="web-dev-icon"><i class="fas fa-shopping-cart"></i></div>
-                            <h3>E-commerce Solutions</h3>
-                            <p>Build online stores with secure payment processing, inventory management, and customer account systems.</p>
-                        </div>
-                        <div class="web-dev-card">
-                            <div class="web-dev-icon"><i class="fas fa-mobile-alt"></i></div>
-                            <h3>Responsive Design</h3>
-                            <p>Create websites that look great and function perfectly on all devices - from desktop to mobile.</p>
-                        </div>
-                        <div class="web-dev-card">
-                            <div class="web-dev-icon"><i class="fas fa-rocket"></i></div>
-                            <h3>Performance Optimization</h3>
-                            <p>Ensure your website loads quickly and runs smoothly with optimized code and efficient architecture.</p>
-                        </div>
-                    </div>
-                    <div style="text-align: center; margin-top: 40px;">
-                        <a href="#contact" class="btn primary">Get a Quote for Your Website</a>
-                    </div>
-                </div>
-            </div>
-        </section>
         <section id="experience">
             <div class="container">
                 <div class="section-title">
@@ -1336,20 +1416,36 @@
                         <p><strong>Email:</strong> <a href="mailto:truwty1@gmail.com">truwty1@gmail.com</a></p>
                         <p><strong>Discord:</strong> truwty</p>
                         <p><strong>Timezone:</strong> GMT</p>
+                        <div class="footer-socials" style="margin-top: 20px;">
+                            <a href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener"><i class="fas fa-gamepad"></i></a>
+                            <a href="#" aria-hidden="true"><i class="fab fa-discord"></i></a>
+                        </div>
                     </div>
                     <div class="contact-box">
                         <h4>Project Inquiry</h4>
                         <p>Tell me about your project and I'll get back to you as soon as possible.</p>
-                        <form id="leadForm">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="nameInput">Your Name</label>
+                                <input id="nameInput" type="text" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="emailInput">Your Email</label>
+                                <input id="emailInput" type="email" placeholder="your.email@example.com" required>
+                            </div>
                             <div class="form-group">
                                 <label for="proj">Project Summary</label>
-                                <input id="proj" type="text" placeholder="E.g. Join logger + role system">
+                                <input id="proj" type="text" placeholder="E.g. Join logger + role system" required>
                             </div>
                             <div class="form-group">
                                 <label for="budg">Budget (GBP)</label>
-                                <input id="budg" type="text" placeholder="E.g. 30-100">
+                                <input id="budg" type="text" placeholder="E.g. 30-100" required>
                             </div>
-                            <button class="btn primary" type="submit">Send</button>
+                            <div class="form-group">
+                                <label for="message">Project Details</label>
+                                <textarea id="message" placeholder="Describe your project in more detail..." required></textarea>
+                            </div>
+                            <button class="btn primary" type="submit">Send Message</button>
                         </form>
                     </div>
                 </div>
@@ -1373,14 +1469,10 @@
                     <a href="#home">Home</a><br>
                     <a href="#portfolio">Portfolio</a><br>
                     <a href="#my-game">My Game</a><br>
-                    <a href="#web-dev">Web Dev</a><br>
                     <a href="#services">Services</a><br>
+                    <a href="#experience">Experience</a><br>
                     <a href="#reviews">Reviews</a>
                 </div>
-            </div>
-            <div class="footer-socials">
-                <a href="https://www.roblox.com/users/8310005469/profile" target="_blank" rel="noopener"><i class="fas fa-gamepad"></i></a>
-                <a href="#" aria-hidden="true"><i class="fab fa-discord"></i></a>
             </div>
             <div class="copyright">© <span id="yr"></span> Truwty • All rights reserved.</div>
         </div>
@@ -1425,6 +1517,25 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.tl-item, .feature, .service, .work, .review-card, .web-dev-card').forEach(el => {
                 observer.observe(el);
+            });
+        });
+
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
             });
         });
 
@@ -1485,9 +1596,28 @@
             alert('Thanks! Your review has been submitted.');
         });
 
-        document.getElementById('leadForm').addEventListener('submit', e => {
+        // Working Contact Form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Lead sent. I\'ll follow up soon.');
+            
+            // Get form values
+            const name = document.getElementById('nameInput').value;
+            const email = document.getElementById('emailInput').value;
+            const project = document.getElementById('proj').value;
+            const budget = document.getElementById('budg').value;
+            const message = document.getElementById('message').value;
+            
+            // Simple validation
+            if (!name || !email || !project || !budget || !message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Here you would normally send the data to a server
+            // For now, we'll just show a success message
+            alert('Thank you for your message! I will get back to you as soon as possible.');
+            
+            // Reset form
             e.target.reset();
         });
 
@@ -1548,4 +1678,3 @@
     </script>
 </body>
 </html>
-
